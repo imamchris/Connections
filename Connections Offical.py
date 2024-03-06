@@ -1,3 +1,5 @@
+import random
+
 def get_category(): # stores/retrivies words from dictionaries 
     categories = []
     
@@ -44,34 +46,41 @@ def display_category(): #creates the grid with a random selection of categories
         row_index = row_index + 1 # moves to the next row
 
     print(grid)
+
+    return grid
  
 
 def get_words():
     guess = print(input("What is your input? "))
     
-    check_answer(guess, )
+    return guess
+   
 
-    
-
-def check_answer(guess, categories):
+def check_answer():
+    guess = get_words()
     guessed_words = []
     print(guessed_words)
 
-    if guess in guessed_words != True and guess in categories:
+    if guess in guessed_words != True: #and guess in categories:
         print("correct")
+        answer_correct = True
         guessed_words.append(guess)
     else:
         print("incorrect")
+        answer_correct = False
         guessed_words.append(guess)
-
+    
     print(guessed_words)
+    return answer_correct
+    
 
 def play_game(): # main game loop 
-    display_category()
+    display_category() #creates a grid
     lives = 4
     won = False
-    while lives >= 0 and won == False:
-        get_words()
-
+    while lives >= 0 and won == False: 
+        answer_correct = check_answer() # sets answer_correct as the outcome of check_answer 
+        if answer_correct == False:
+            lives -= 1
 
 play_game() 
