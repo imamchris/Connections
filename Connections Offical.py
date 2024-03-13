@@ -23,7 +23,7 @@ def get_category(): # stores/retrivies words from dictionaries
         'words': ['Sydney','Melbourne', 'Darwin', 'Perth']
     }
 
-    categories.append(sport_category)
+    categories.append(sport_category) # Adds individual categories to categories 
     categories.append(nature_category)
     categories.append(classroom_category)
     categories.append(australiacities_category)
@@ -31,11 +31,10 @@ def get_category(): # stores/retrivies words from dictionaries
     return categories
 
 
-def display_category(): #creates the grid with a random selection of categories
-    grid = []
+def display_category(connections): #creates the grid with a random selection of categories
+    grid = [] # creates an empty list (a grid)
     row_index = 0
-    connections = get_category() # sets connections to the results of the function get_category
-
+    
     for connection in connections:
         col_index = 0
         for word in connection ['words']: # within dictionary, get each word
@@ -45,42 +44,55 @@ def display_category(): #creates the grid with a random selection of categories
             col_index = col_index + 1 # moves to next column
         row_index = row_index + 1 # moves to the next row
 
-    random.shuffle(grid)
-    print(grid)
+    random.shuffle(grid) # Randomizes the order of the grid
+    print(grid) # prints the grid
 
     return grid
  
 
 def get_words():
-    guess = input("What is your input? ")
     
+    valid_guess = False
+
+    while valid_guess == False:
+        guess = input("What is your input? ") # Asks for an input
+        word_input = guess.split()
+
+        if len(word_input) == 4: # if there are four words valid_guess = True
+            valid_guess = True
+        else: # if it isn't four words valid_guess = False
+            valid_guess = False
+            print("This input has to be four words at least, try again...")
+
     return guess
    
 
-def check_answer(guess, guessed_words):
+def check_answer(guess, categories):
 
-    if guess in guessed_words != True:
+    if guess in categories == True:
         print("Your answer is correct")
         answer_correct = True
-        guessed_words.append(guess)
+        # guessed_words.append(guess)
     else:
         print("Your answer is incorrect")
         answer_correct = False
-        guessed_words.append(guess)
+        # guessed_words.append(guess)
     
-    print(guessed_words)
+    # print(guessed_words)
     return answer_correct
     
 
 def play_game(): # main game loop 
+    categories = get_category() # sets connections to the results of the function get_category
+    display_category(categories) #creates a grid
+    
     lives = 4
     correct_categories = 0
-    guessed_words = []
     won = False
-    display_category() #creates a grid
+
     while lives >= 0 and won == False: 
         guess = get_words() # gets the player input/guess
-        answer_correct = check_answer(guess, guessed_words) # sets answer_correct as the outcome of check_answer 
+        answer_correct = check_answer(guess, categories) # sets answer_correct as the outcome of check_answer 
         if answer_correct == False:
             lives -= 1
         elif answer_correct == True:
