@@ -53,16 +53,23 @@ def display_category(connections): #creates the grid with a random selection of 
 def get_words():
     
     valid_guess = False
+    is_integer = True
 
-    while valid_guess == False:
+    while valid_guess == False and is_integer == True: # keeps repeating until player guess has 4 words, and has no numbers in it 
         guess = input("What is your input? ") # Asks for an input
         word_input = guess.split()
 
-        if len(word_input) == 4: # if there are four words valid_guess = True
+        if len(word_input) == 4: # if there are four words, valid_guess = True
             valid_guess = True
         else: # if it isn't four words valid_guess = False
             valid_guess = False
             print("This input has to be four words at least, try again...")
+
+        if type(guess) != int: # if there are no integers, is_integer = False 
+            is_integer = False
+        else: # if there are integers, is_integer = True 
+            is_integer = True
+            print("This input cannot have any numbers, try again...")
 
     return guess
    
@@ -82,6 +89,16 @@ def check_answer(guess, categories):
     return answer_correct
     
 
+def check_win(correct_categories): # checks if all categories have been matched
+    if correct_categories == 4:
+        won = True
+    else:
+        won = False
+
+    return won
+
+
+
 def play_game(): # main game loop 
     categories = get_category() # sets connections to the results of the function get_category
     display_category(categories) #creates a grid
@@ -97,5 +114,11 @@ def play_game(): # main game loop
             lives -= 1
         elif answer_correct == True:
             correct_categories += 1
+        check_win(correct_categories)
+    
+    if won == True:
+        print("Congratulations you Won!")
+    else:
+        print(f"You lost the categories were... this")
 
 play_game() 
