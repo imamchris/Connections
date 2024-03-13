@@ -45,28 +45,26 @@ def display_category(): #creates the grid with a random selection of categories
             col_index = col_index + 1 # moves to next column
         row_index = row_index + 1 # moves to the next row
 
+    random.shuffle(grid)
     print(grid)
 
     return grid
  
 
 def get_words():
-    guess = print(input("What is your input? "))
+    guess = input("What is your input? ")
     
     return guess
    
 
-def check_answer():
-    guess = get_words()
-    guessed_words = []
-    print(guessed_words)
+def check_answer(guess, guessed_words):
 
-    if guess in guessed_words != True: #and guess in categories:
-        print("correct")
+    if guess in guessed_words != True:
+        print("Your answer is correct")
         answer_correct = True
         guessed_words.append(guess)
     else:
-        print("incorrect")
+        print("Your answer is incorrect")
         answer_correct = False
         guessed_words.append(guess)
     
@@ -75,12 +73,17 @@ def check_answer():
     
 
 def play_game(): # main game loop 
-    display_category() #creates a grid
     lives = 4
+    correct_categories = 0
+    guessed_words = []
     won = False
+    display_category() #creates a grid
     while lives >= 0 and won == False: 
-        answer_correct = check_answer() # sets answer_correct as the outcome of check_answer 
+        guess = get_words() # gets the player input/guess
+        answer_correct = check_answer(guess, guessed_words) # sets answer_correct as the outcome of check_answer 
         if answer_correct == False:
             lives -= 1
+        elif answer_correct == True:
+            correct_categories += 1
 
 play_game() 
