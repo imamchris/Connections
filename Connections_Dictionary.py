@@ -25,17 +25,22 @@ def selection():
     }
 
     videogames_category = {
-        'category_name': 'Australian Cities',
+        'category_name': 'Video games',
         'words': ['Minecraft','Roblox', 'Fortnite', 'Halo']
     }
 
+    road_category = {
+        'category_name': 'Road',
+        'words': ['Traffic','Car', 'Tarmack', 'Truck']
+    }
+
     range = [sport_category, nature_category, classroom_category, australiacities_category,
-             videogames_category]
+             videogames_category, road_category]
+
+    while len(random_categories) < 4:  # Keep adding dictionaries until there are 4 in the list
+        category = random.choice(range)
+        if category not in random_categories:  # Check if the category is not already in the list
+            random_categories.append(category)
     
-    for i in range(1,4)
-        random_category = random.choice(range)
-        random_categories.append(random_category)
 
     return random_categories
-
-    

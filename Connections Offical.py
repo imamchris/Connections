@@ -3,41 +3,13 @@ from Connections_Dictionary import selection
 
 def get_category(): # stores/retrivies words from dictionaries 
     categories = []
-
+    
     random_categories = selection()
-    print(random_categories)
-    print(" ")
-    
-    # for i in range(1,4):
-    #     categories.append(random_categories[i])
-    
-    
-    # sport_category = {
-    #     'category_name': 'Sport',
-    #     'words': ['Soccer','Cricket', 'Baseball', 'Basketball']
-    # }
 
-    # nature_category = {
-    #     'category_name': 'Nature',
-    #     'words': ['Tree', 'Flower', 'Plant', 'Bush']
-    # }
-
-    # classroom_category = {
-    #     'category_name': 'Classroom',
-    #     'words': ['Whiteboard', 'Book', 'Teacher', 'Desk']
-    # }
-
-    # australiacities_category = {
-    #     'category_name': 'Australian Cities',
-    #     'words': ['Sydney','Melbourne', 'Darwin', 'Perth']
-    # }
-
-    # categories.append(sport_category) # Adds individual categories to categories 
-    # categories.append(nature_category)
-    # categories.append(classroom_category)
-    # categories.append(australiacities_category)
-
-    print(categories)
+    random_search = 0
+    while len(categories) < 4:
+        categories.append(random_categories[random_search])
+        random_search += 1
 
     return categories
 
@@ -51,14 +23,22 @@ def display_category(connections): #creates the grid with a random selection of 
         col_index = 0
         for word in connection ['words']: # within dictionary, get each word
             # put the word inside the correct grid reference
-            connections[row_index][col_index] = word
             grid.append(word)
             col_index = col_index + 1 # moves to next column
         row_index = row_index + 1 # moves to the next row
 
-    random.shuffle(grid) # Randomizes the order of the grid
-    print(grid) # prints the grid
- 
+    random.shuffle(grid) #randomizes the order of the grid
+    
+    # prints the grid
+    max_word_len = max(len(word) for word in grid)
+    print("=" * ((10 + 3) * 4 + 1))  # Print top border of the grid
+    for i in range(4):
+        print('| ', end='') # prints '|' at he start of each line
+        for j in range(4):
+            word = (grid[i * 4 + j]) # after the following word '|' is printed
+            print(f"{word.ljust(max_word_len)} | ", end= '')
+        print() # move to new line
+    print("=" * ((10 + 3) * 4 + 1))  # Print bottom border of the grid
 
 
 def get_words():
